@@ -38,7 +38,7 @@ namespace CompleteWeatherApp
 
             int GetStatus();
 
-            bool StartTracking();
+            Task<bool> StartTracking();
 
             double GetLatitude();
 
@@ -57,6 +57,8 @@ namespace CompleteWeatherApp
 
         public MainPage()
         {
+            int counter = 0;
+
             InitializeComponent();
 
             // !!! Interface Init  
@@ -65,9 +67,24 @@ namespace CompleteWeatherApp
             // Try to start geolocation tracking...
             geoInfo.StartTracking();
 
-            while ( (geoInfo.GetStatus() != 2) && (geoInfo.GetStatus() != 5))
+            int status = geoInfo.GetStatus();
+
+            while ( (status != 2) && (status != 5))
             {
+                status = geoInfo.GetStatus();
                 // wait gps's init
+                //Debug.WriteLine("Wait gps's init... geoInfo.GetStatus=" + status);
+
+                counter++;
+                if (counter == 3000)
+                {
+                    //await 
+                    DisplayAlert("Alert", "GPS's init failed", "OK");
+
+                    GetCoordinates();
+
+                    return;
+                }
             }
 
             // Stop geolocation tracking
@@ -87,7 +104,7 @@ namespace CompleteWeatherApp
         // Simple GPS tracking =)
         private async void GetCoordinates()
         {
-
+            Debug.WriteLine("PLAN A - Try to get coordinates");
             // PLAN A ("iOS / Android") 
             try
             {
@@ -110,15 +127,13 @@ namespace CompleteWeatherApp
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Ex. msg:" + ex.Message);
-
-                
+                Debug.WriteLine("Ex. msg:" + ex.Message);               
                 
             }
 
             // PLAN B ("UWP")
 
-            Debug.WriteLine("PLAN B!");
+            Debug.WriteLine("PLAN B - geo Info.GetStatus");
 
             // Dirty Hack: redo it!!!
             //while (geoInfo.GetLatitude() == 0) { };
@@ -128,6 +143,7 @@ namespace CompleteWeatherApp
             {
                 //TODO
                 //await DisplayAlert("Caution", "Access to location is denied. Please unblock it (change Weather app permission)", "OK");
+                Debug.WriteLine("Caution: access to location is denied! Please unblock it (change Weather app permission)");
             }
 
             Latitude = geoInfo.GetLatitude();
@@ -136,7 +152,7 @@ namespace CompleteWeatherApp
             // Experimental!            
             Location = await GetCityName(Latitude, Longitude);
 
-            Debug.WriteLine("GetCity: " + Location);
+            Debug.WriteLine("[debug] GetCity: " + Location);
 
             GetWeatherInfo();
 
@@ -384,29 +400,36 @@ namespace CompleteWeatherApp
                         }
                     }
 
-
+                    /*
                     // +1 day, +2 day, +3 day, +4 day =)
-                    for (int i = 0; i < 4; i++)
+                    //for (int i = 0; i < 4; i++)
+                    //{
+                    int i = 0;
+
+                    var dt = new DateTime(1970, 1, 1).AddSeconds(allList[i].dt);
+
+                    dayOneTxt.Text = dt.ToString("dddd");
+                    dateOneTxt.Text = dt.ToString("dd MMM");
+                        
+                    switch (Device.RuntimePlatform)
                     {
-                        var dt = new DateTime(1970, 1, 1).AddSeconds(allList[i].dt);
-                        dayOneTxt.Text = dt.ToString("dddd");
-                        dateOneTxt.Text = dt.ToString("dd MMM");
-                        switch (Device.RuntimePlatform)
-                        {
-                            case Device.Android:
-                                iconOneImg.Source = $"w{allList[i].weather[0].icon}";
-                                break;
-                            case Device.iOS:
-                                iconOneImg.Source = $"w{allList[i].weather[0].icon}";
-                                break;
-                            case Device.UWP:
-                                iconOneImg.Source = $"w{allList[i].weather[0].icon}.png";
-                                break;
-                        }
-                        tempOneTxt.Text = allList[i].temp.day.ToString("0");
+                        case Device.Android:
+                            iconOneImg.Source = $"w{allList[i].weather[0].icon}";
+                            break;
+                        case Device.iOS:
+                            iconOneImg.Source = $"w{allList[i].weather[0].icon}";
+                            break;
+                        case Device.UWP:
+                            iconOneImg.Source = $"w{allList[i].weather[0].icon}.png";
+                            break;
                     }
 
-                    /*
+                    tempOneTxt.Text = allList[i].temp.day.ToString("0");
+
+                    //}
+                    */
+
+                    
                     // +1 day
                     var dt = new DateTime(1970, 1, 1).AddSeconds(allList[0].dt);
                     dayOneTxt.Text = dt.ToString("dddd");
@@ -483,7 +506,7 @@ namespace CompleteWeatherApp
                             break;
                     }
                     tempFourTxt.Text = allList[3].temp.day.ToString("0");
-                    */
+                    
 
                     //DEBUG
                     //await DisplayAlert("Weather Info [>>]", lat + 

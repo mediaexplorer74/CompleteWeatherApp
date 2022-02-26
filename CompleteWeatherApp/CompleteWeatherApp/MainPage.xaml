@@ -2,25 +2,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:local="clr-namespace:CompleteWeatherApp"
-	BackgroundColor="Black"
-	Title = "CompleteWeatherApp v1.0 Alpha"
 	x:Class="CompleteWeatherApp.MainPage"
-             >
+             
+    BackgroundColor="Black"
+    Title = "CompleteWeatherApp v1" 
+    >
 
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="0">
-        
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="0">        
             <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+            <!--*-->
+                <RowDefinition Height="auto"/>
+            <!--auto-->
+           </Grid.RowDefinitions>
         <Grid RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <BoxView Grid.RowSpan="2" BackgroundColor="#7585BA" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-            <Image x:Name="bgImg" Aspect="AspectFill" Grid.RowSpan="2" Source="bg.png" Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
-            <Image Aspect="AspectFill" Grid.RowSpan="2" Source="overlay.png" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            <Image x:Name="bgImg" Aspect="AspectFill" Grid.RowSpan="2" Source="bg.png" 
+                   Opacity="0.5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            <Image Aspect="AspectFill" Grid.RowSpan="2" Source="overlay.png" 
+                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            
             <!-- Image Button Source="menu.png" Margin="20" WidthRequest="23" HeightRequest="15" HorizontalOptions="Start" VerticalOptions="Center" /-->
             <Button Margin="20" Text="[=]" WidthRequest="23" HeightRequest="15" HorizontalOptions="Start" VerticalOptions="Center" />
             <Grid Grid.Row="1">

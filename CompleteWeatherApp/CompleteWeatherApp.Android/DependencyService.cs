@@ -3,27 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Security.ExchangeActiveSyncProvisioning;
-using Windows.System.Profile;
 using Xamarin.Forms;
 using System.Diagnostics;
 using System.ServiceModel;
 
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 
-using Windows.Storage;
-using Windows.Devices.Geolocation; // !
+//using Windows.Devices.Geolocation; // !
+using Android.Locations;
 
 using static CompleteWeatherApp.MainPage;
 using System.Threading;
 
 
+
 //[assembly: Dependency(typeof(CompleteWeatherApp.UWP.DeviceInfo))]
-[assembly: Dependency(typeof(CompleteWeatherApp.UWP.GeoInfo))]
-namespace CompleteWeatherApp.UWP
+[assembly: Dependency(typeof(CompleteWeatherApp.Droid.GeoInfo))]
+namespace CompleteWeatherApp.Droid
 {
 
 
@@ -168,6 +163,7 @@ namespace CompleteWeatherApp.UWP
 
                 switch (e.Status)
                 {
+                /*
                     case PositionStatus.Ready:
                     // Location platform is providing valid data.
                     //ScenarioOutput_Status.Text = "Ready";
@@ -217,6 +213,7 @@ namespace CompleteWeatherApp.UWP
                     Debug.WriteLine("Location is not available on this version of the OS.");
                         break;
 
+                */
                     default:
                     //ScenarioOutput_Status.Text = "Unknown";
                     GPSStatus = 9; // "Unknown"
@@ -236,6 +233,7 @@ namespace CompleteWeatherApp.UWP
 
             try
             {
+                /*
                 accessStatus = await Geolocator.RequestAccessAsync();
             
 
@@ -274,6 +272,7 @@ namespace CompleteWeatherApp.UWP
                         //LocationDisabledMessage.Visibility = Visibility.Collapsed;
                         break;
                 }
+                */
             }
             catch (Exception ex)
             {
@@ -294,8 +293,8 @@ namespace CompleteWeatherApp.UWP
             }
             else
             {
-                Latitude = position.Coordinate.Point.Position.Latitude;
-                Longitude = position.Coordinate.Point.Position.Longitude;
+                Latitude = 0;//position.Coordinate.Point.Position.Latitude;
+                Longitude = 0;// position.Coordinate.Point.Position.Longitude;
                 //ScenarioOutput_Latitude.Text = position.Coordinate.Point.Position.Latitude.ToString();
                 //ScenarioOutput_Longitude.Text = position.Coordinate.Point.Position.Longitude.ToString();
                 //ScenarioOutput_Accuracy.Text = position.Coordinate.Accuracy.ToString();
@@ -305,5 +304,28 @@ namespace CompleteWeatherApp.UWP
 
     }//GeoInfo : IGeoInfo
 
+    internal class GeolocationAccessStatus
+    {
+    }
 
+    internal class PositionChangedEventArgs
+    {
+        public Geoposition Position { get; internal set; }
+    }
+
+    internal class Geoposition
+    {
+    }
+
+    internal class Geolocator
+    {
+        public int ReportInterval { get; set; }
+        public Action<Geolocator, PositionChangedEventArgs> PositionChanged { get; internal set; }
+        public Action<Geolocator, StatusChangedEventArgs> StatusChanged { get; internal set; }
+
+        internal static object RequestAccessAsync()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
