@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"  xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" IgnorableNamespaces="uap mp uap2">
-  <Identity Name="CompleteWeatherApp1" Publisher="CN=media" Version="1.0.7.0" />
+  <Identity Name="ME.CompleteWeatherApp1" Publisher="CN=media" Version="1.0.10.0" />
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-c85c-81be-68815c480690" PhonePublisherId="00000000-c85c-0000-c85c-000000000000" />
   <Properties>
-    <DisplayName>CompleteWeather v1</DisplayName>
+    <DisplayName>CompleteWeather v1.0</DisplayName>
     <PublisherDisplayName>mediaexplorer</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

@@ -49,8 +49,10 @@ namespace CompleteWeatherApp
         }
 
         public string AppId = "SuperWeatherApp";
-        public string APIKey = "8b6d92f6ff72b8a7bacfb35cde4de4e7"; // cf0e69598b69f43df04a877079887687
 
+        // "cf0e69598b69f43df04a877079887687"; 1 bad api key (as sample)
+        // "8b6d92f6ff72b8a7bacfb35cde4de4e7"; 2 bad api key (as sample)
+        public string APIKey = "e60a227a4667049d23504904815bdd54"; 
 
         public string lon = "0";
         public string lat = "0";
@@ -69,17 +71,21 @@ namespace CompleteWeatherApp
 
             int status = geoInfo.GetStatus();
 
+            //TEST
+            Debug.WriteLine("Wait gps's init... geoInfo.GetStatus=" + status);
+
             while ( (status != 2) && (status != 5))
             {
                 status = geoInfo.GetStatus();
+                
                 // wait gps's init
-                //Debug.WriteLine("Wait gps's init... geoInfo.GetStatus=" + status);
+                Debug.WriteLine("Yet waiting... geoInfo.GetStatus=" + status);
 
                 counter++;
-                if (counter == 3000)
+                if (counter == 1500)//3000)
                 {
                     //await 
-                    DisplayAlert("Alert", "GPS's init failed", "OK");
+                    //DisplayAlert("Alert", "GPS's init failed", "OK");
 
                     GetCoordinates();
 
@@ -89,10 +95,14 @@ namespace CompleteWeatherApp
 
             // Stop geolocation tracking
 
+            //TEST
+            Debug.WriteLine("Stop gps's waiting... geoInfo.GetStatus=" + status);
+
             geoInfo.StopTracking();
 
-
+            //RnD
             //GetWeatherInfo();
+
             GetCoordinates();
 
         }

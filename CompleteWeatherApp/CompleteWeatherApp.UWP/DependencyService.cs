@@ -21,7 +21,6 @@ using static CompleteWeatherApp.MainPage;
 using System.Threading;
 
 
-//[assembly: Dependency(typeof(CompleteWeatherApp.UWP.DeviceInfo))]
 [assembly: Dependency(typeof(CompleteWeatherApp.UWP.GeoInfo))]
 namespace CompleteWeatherApp.UWP
 {
@@ -60,12 +59,24 @@ namespace CompleteWeatherApp.UWP
         //GetLatitude
         public double GetLatitude()
         {
+            // Dirty "Moscow hack" if GPS off! =)
+            if (Latitude == 0)
+            {
+                Latitude = 55.75222;
+            }
+
             return Latitude;
         }//GetLongitude
 
         //GetLongitude
         public double GetLongitude()
         {
+            // Dirty "Moscow hack" if GPS off! =)
+            if (Longitude == 0)
+            {
+                Longitude = 37.61556;
+            }
+
             return Longitude;
         }//GetLongitude
 
