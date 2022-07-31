@@ -1,7 +1,7 @@
-# CompleteWeatherApp v1.0.8
+# CompleteWeatherApp v1.0.10
 
-If you want to be cross-platform developer, 
-create your own COMPLETE Mobile App In Xamarin Forms ;)
+CompleteWeatherApp is part of my Project Gemini (meta-project about A and W worlds "connection"). 
+If you want to be cross-platform developer, create your own COMPLETE Mobile App In Xamarin Forms ;)
 
 ## About
 Create your COMPLETE Mobile App In Xamarin Forms - The Weather App with GPS tracking, geo-backgrounding, plus weather visualising via OpenWeatherMap! :-)
